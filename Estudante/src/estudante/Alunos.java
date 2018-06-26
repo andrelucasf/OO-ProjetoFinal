@@ -6,9 +6,9 @@ public class Alunos {
 	private String nome;
 	private String email;
 	 
-public Alunos(float r, String n, String e){
-	this.setEmail(e);
+public Alunos(String n, String e, float r){
 	this.setNome(n);
+	this.setEmail(e);
 	this.setRenda(r);
 }
 	
@@ -21,7 +21,6 @@ public String toString() {
 				          "Renda: " + renda + "\n";
 	return resposta;
 }
-
 
 	public float getRenda() {
 		return renda;

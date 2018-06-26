@@ -6,9 +6,11 @@ public class Principal {
 static Cadastramento c;
 	
 static final String[] opcoes = {
-	"-------selecione uma opção--------",
+	"-------Selecione uma opção--------",
 	"Cadastar aluno",
 	"Remover aluno",
+	"Gravar alunos em arquivo",
+	"Ler alunos em arquivo",
 	"Sair"
 };
 	public static void main(String[] args) {
@@ -28,6 +30,12 @@ static final String[] opcoes = {
 		    
 	    if (opcao == "Remover aluno")
 			removerAluno();
+	    
+	    if(opcao == "Gravar alunos em arquivo")
+	    	gravarEmArquivo();
+	    
+	    if(opcao == "Ler alunos em arquivo")
+	    	lerAlunosDeArquivo();
 		    
 	    opcao = JOptionPane.showInputDialog(
 				null, 
@@ -44,9 +52,9 @@ static final String[] opcoes = {
 		boolean resposta;
 		String nome = JOptionPane.showInputDialog("Nome");
 		String email = JOptionPane.showInputDialog("Email");
-		float renda = Float.parseFloat(JOptionPane.showInputDialog("Renda"));
+		int renda = Integer.parseInt(JOptionPane.showInputDialog("Renda"));
 		
-		Alunos a = new Alunos(renda, nome, email);
+		Alunos a = new Alunos(nome, email, renda);
 		resposta= c.cadastrarAluno(a);
 		
 		if(resposta)
@@ -64,7 +72,7 @@ static final String[] opcoes = {
 	}
    private static void removerAluno(){
 	   Alunos a = pesquisarAluno();
-		boolean remocao = false;
+	   boolean remocao = false;
 	   int opcao = JOptionPane.showConfirmDialog(null, 
 				"Deseja mesmo deletar o aluno?", 
 				"Deletar?", 
@@ -77,8 +85,22 @@ static final String[] opcoes = {
 		   JOptionPane.showMessageDialog(null,"Aluno removido com sucesso!");
 	   	else
 	   		JOptionPane.showMessageDialog(null,"Não foi possível remover aluno");
-	   }else 
+	   }
+	   else 
 		   JOptionPane.showMessageDialog(null,"Operação cancelada");
    }
+	
+   private static void lerAlunosDeArquivo() {
+		boolean resposta; 
+		resposta = c.lerArquivo();
+		if (resposta)
+			JOptionPane.showMessageDialog(null, "Alunos lidos com sucesso");
 	}
 
+	private static void gravarEmArquivo() {
+		boolean resposta = c.gravarAlunosEmArquivo();
+		if (resposta) 
+			JOptionPane.showMessageDialog(null, "Alunos gravados com sucesso");
+	}
+   
+}

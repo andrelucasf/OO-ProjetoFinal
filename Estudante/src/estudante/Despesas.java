@@ -23,10 +23,10 @@ public void setValor(float valor) {
 	this.valor = valor;
 }
 public String toString(){
-	String resposta = "---------despesa------------"+"\n"+
-                      "Descriao: " + descricao + "\n" + 
+	String resposta = "---------Despesa------------"+"\n"+
+                      "Descrição: " + descricao + "\n" + 
 			          "Valor" + valor + "\n"+
-                      "tipo: " + categoria.getTipo() + "\n";
+                      "Tipo: " + categoria.getTipo() + "\n";
 	return resposta;
 }
 }
