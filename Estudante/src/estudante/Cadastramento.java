@@ -10,12 +10,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class Cadastramento {
 	List<Alunos> alunos;
+	List<Despesas>despesa;
 	//List<Despesas>despesa;
 	public Cadastramento(){
 		alunos = new LinkedList<Alunos>();
+		despesa = new LinkedList<Despesas>();
 		//despesa = new LinkedList<Despesas>();
 	}
 
@@ -23,10 +24,12 @@ public boolean cadastrarAluno(Alunos a){
 	boolean resposta = alunos.add(a);
 	return resposta;
 }
+
 public boolean removerAluno(Alunos a){
 	boolean resposta = alunos.remove(a);
 	return resposta;
 }
+
 public Alunos pesquisarAluno(String nome){// a função pesquisar alunos será usada pela função remover alunos presente na principal e em cadastramento para pesquisar o objeto a ser removido 
 	Alunos resposta = null;
 	Iterator<Alunos> it = alunos.iterator();
@@ -34,9 +37,31 @@ public Alunos pesquisarAluno(String nome){// a função pesquisar alunos será u
 		Alunos a = it.next();
 		if(a.getNome().equalsIgnoreCase(nome))
 			resposta = a;
-		}
+	}
 	return resposta;
 	}
+
+public boolean cadastrarDespesa(Despesas d){
+		boolean resposta = despesa.add(d);
+		return resposta;
+}
+
+public boolean removerDespesa(Despesas d){
+	boolean resposta = despesa.remove(d);
+	return resposta;
+}
+
+public Despesas pesquisarDespesa(String nome){
+	Despesas resposta = null;
+	Iterator<Despesas>it = despesa.iterator();
+	while(it.hasNext()){
+		Despesas d = it.next();
+		if(d.getDescricao().equalsIgnoreCase(nome)){
+			resposta = d;
+		}
+	}
+	return resposta;
+}
 	
 public boolean gravarAlunosEmArquivo() {
 	boolean resposta = false;

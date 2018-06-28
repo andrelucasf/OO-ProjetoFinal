@@ -15,7 +15,7 @@ public Alunos(String n, String e, float r){
 
 	@Override
 public String toString() {
-		String resposta = "----------Aluno----------"+"\n"+
+		String resposta = "\n"+
 				          "Nome: " + nome +"\n"+
 				          "Email: " + email +"\n"+
 				          "Renda: " + renda + "\n";
