@@ -100,6 +100,7 @@ public boolean gravarAlunosEmArquivo() {
 	return resposta;
 }
 
+@SuppressWarnings("resource")
 public boolean lerArquivo() {
 	FileReader arquivo = null;
 	BufferedReader buffer;

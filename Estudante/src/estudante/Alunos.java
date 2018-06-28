@@ -12,8 +12,7 @@ public Alunos(String n, String e, float r){
 	this.setRenda(r);
 }
 	
-
-	@Override
+@Override
 public String toString() {
 		String resposta = "\n"+
 				          "Nome: " + nome +"\n"+

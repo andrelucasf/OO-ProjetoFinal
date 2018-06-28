@@ -17,6 +17,15 @@ static final String[] opcoes = {
 	"Gravar em arquivo",
 	"Sair"
 };
+
+static final String[] opcoesCategoria = {
+	"-------Selecione uma categoria--------",
+	"Residência (Água, luz, aluguel...)",
+	"Telecomunicações",
+	"Alimentação",
+	"Lazer",
+	"Outros"
+};
 	public static void main(String[] args) {
 		c = new Cadastramento();
 		 
@@ -29,21 +38,21 @@ static final String[] opcoes = {
 				opcoes,
 				opcoes[0]);
 		while(opcao != "Sair"){
-		if(opcao.toString() == "Cadastrar aluno")
+		if(opcao == "Cadastrar aluno")
 			cadastrarAluno();
 	    if (opcao == "Remover aluno")
 			removerAluno();
 	    if(opcao == "Cadastrar despesa")
 	    	cadastrarDespesa();
-	    if(opcao=="Pesquisar aluno" )
+	    if(opcao =="Pesquisar aluno" )
 	    	pesquisarAluno();
 		if(opcao == "Remover despesa")
 			removerDespesa();
 		if(opcao == "Pesquisar despesa")
 			pesquisarDespesa();
-		if(opcao=="Ler em arquivo")
+		if(opcao =="Ler em arquivo")
 			lerEmArquivo();
-		if(opcao=="Gravar em arquivo")
+		if(opcao =="Gravar em arquivo")
 			gravarEmArquivo();
 	    opcao = JOptionPane.showInputDialog(
 				null, 
@@ -68,16 +77,37 @@ static final String[] opcoes = {
 	}
 	private static void cadastrarDespesa() {//incluir o tipo e subtipo de despesa
 		boolean resposta;
-		String descricao = JOptionPane.showInputDialog("Descrição");
-		float valor = Float.parseFloat(JOptionPane.showInputDialog("Valor"));
+		int opcao=0;
+		do{
+		Object categoria = JOptionPane.showInputDialog(null, 
+				"Selecione uma categoria", 
+				"Menu de categoria", 
+				JOptionPane.QUESTION_MESSAGE, 
+				null, 
+				opcoesCategoria,
+				opcoesCategoria[0]);
+		if(categoria == "Outros"){
+			categoria = JOptionPane.showInputDialog("Digite o nome da categoria a ser cadastrada");
+			JOptionPane.showMessageDialog(null, "Categoria cadastrada com sucesso!");
+		}
+		String descricao = JOptionPane.showInputDialog("Descrição da despesa");
+		float valor = Float.parseFloat(JOptionPane.showInputDialog("Valor da despesa"));
 		
-		Despesas d = new Despesas(descricao, valor);
+		
+		Despesas d = new Despesas(descricao, valor,(String)categoria);
 		resposta  = c.cadastrarDespesa(d);
 		
 		if (resposta){
 			JOptionPane.showMessageDialog(null, "Despesa cadastrada com sucesso");
 			System.out.println(d);
+		
+		opcao = JOptionPane.showConfirmDialog(null, 
+					"Deseja cadastrar outra despesa?", 
+					"Cadastrar", 
+					JOptionPane.YES_NO_OPTION, 
+					JOptionPane.QUESTION_MESSAGE);
 		}
+		}while(opcao != JOptionPane.NO_OPTION);
 	}
 	private static void removerDespesa(){
 		Despesas d = pesquisarDespesa();
@@ -100,6 +130,8 @@ static final String[] opcoes = {
 	}
 	private static void cadastrarAluno() {
 		boolean resposta;
+		int opcao=0;
+		do{
 		String nome = JOptionPane.showInputDialog("Nome");
 		String email = JOptionPane.showInputDialog("Email");
 		float renda = Float.parseFloat(JOptionPane.showInputDialog("Renda"));
@@ -110,6 +142,14 @@ static final String[] opcoes = {
 		if(resposta)
 			JOptionPane.showMessageDialog(null,"Cadastro realizado com sucesso!");
 			System.out.println(a);
+			
+		 opcao = JOptionPane.showConfirmDialog(null, 
+						"Deseja cadastrar outro aluno?", 
+						"Cadastrar?", 
+						JOptionPane.YES_NO_OPTION, 
+						JOptionPane.QUESTION_MESSAGE);
+			
+		}while(opcao != JOptionPane.NO_OPTION);
 		
 	}
 	private static Alunos pesquisarAluno(){
