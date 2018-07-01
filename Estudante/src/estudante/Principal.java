@@ -13,6 +13,7 @@ static final String[] opcoes = {
 	"Cadastrar despesa",
 	"Remover despesa",
 	"Pesquisar despesa",
+	"Calcular contribuições",
 	"Ler em arquivo",
 	"Gravar em arquivo",
 	"Sair"
@@ -54,6 +55,8 @@ static final String[] opcoesCategoria = {
 			lerEmArquivo();
 		if(opcao =="Gravar em arquivo")
 			gravarEmArquivo();
+		if(opcao =="Calcular contribuições")
+			calcularContribuicao();
 	    opcao = JOptionPane.showInputDialog(
 				null, 
 				"Selecione uma opção", 
@@ -66,6 +69,27 @@ static final String[] opcoesCategoria = {
 		
 		}
 	
+	private static void calcularContribuicao(){
+		String[] opcoesContribuicao = {
+			"-------Selecione um método de cálculo-------",
+			"Cálculo igualitário",
+			"Cálculo proporcional"
+		};
+		
+		Object opcao = JOptionPane.showInputDialog(
+				null, 
+				"Selecione uma opção", 
+				"Opções de cálculo", 
+				JOptionPane.QUESTION_MESSAGE, 
+				null, 
+				opcoesContribuicao,
+				opcoesContribuicao[0]);
+		if(opcao =="Cálculo igualitário")
+			c.calcularIgual();
+		if(opcao =="Cáculo proporcional")
+			c.calcularProporcional();
+	}
+	
 	private static Despesas pesquisarDespesa(){
 		String descricao = JOptionPane.showInputDialog("Descrição");
 		Despesas d = c.pesquisarDespesa(descricao);
@@ -75,7 +99,8 @@ static final String[] opcoesCategoria = {
 			JOptionPane.showMessageDialog(null, "Despesa encontrada!\n" + d);
 		return d;
 	}
-	private static void cadastrarDespesa() {//incluir o tipo e subtipo de despesa
+	//Incluir o tipo de despesa
+	private static void cadastrarDespesa() {
 		boolean resposta;
 		int opcao=0;
 		do{
@@ -136,8 +161,8 @@ static final String[] opcoesCategoria = {
 		String email = JOptionPane.showInputDialog("Email");
 		float renda = Float.parseFloat(JOptionPane.showInputDialog("Renda"));
 		
-		Alunos a = new Alunos(nome, email,renda);
-		resposta= c.cadastrarAluno(a);
+		Alunos a = new Alunos(nome, email, renda);
+		resposta = c.cadastrarAluno(a);
 		
 		if(resposta)
 			JOptionPane.showMessageDialog(null,"Cadastro realizado com sucesso!");
@@ -195,4 +220,5 @@ static final String[] opcoesCategoria = {
 		if (resposta) 
 			JOptionPane.showMessageDialog(null, "Alunos gravados com sucesso");
 	}
+	
 }

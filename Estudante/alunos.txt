@@ -1,0 +1,2 @@
+Ana;ana@gmail;2000.0;
+Andre;andre@gmail;1500.0;

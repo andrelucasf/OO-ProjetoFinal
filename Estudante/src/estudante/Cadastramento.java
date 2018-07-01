@@ -10,16 +10,18 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class Cadastramento {
 	List<Alunos> alunos;
-	List<Despesas>despesa;
-	//List<Despesas>despesa;
+	List<Despesas> despesa;
+	
 	public Cadastramento(){
 		alunos = new LinkedList<Alunos>();
 		despesa = new LinkedList<Despesas>();
-		//despesa = new LinkedList<Despesas>();
 	}
 
+//Cadastros
 public boolean cadastrarAluno(Alunos a){
 	boolean resposta = alunos.add(a);
 	return resposta;
@@ -63,6 +65,43 @@ public Despesas pesquisarDespesa(String nome){
 	return resposta;
 }
 	
+//Calculos de despesas e contribuições
+public float calcularTotal(){
+  float total = 0;
+Iterator <Despesas> it= despesa.iterator();
+while(it.hasNext()){
+	Despesas d = it.next();
+	total+=d.getValor();
+}
+
+return total;
+}
+public float calcularIgual(){
+	
+	float valor = calcularTotal()/alunos.size();
+	System.out.println(valor);
+	
+	for(Alunos a : alunos){
+		a.setContribuicao(valor);
+		JOptionPane.showMessageDialog(null,a);
+	}
+	return valor;
+}
+public float calcularProporcional(){
+	float valor = 0;
+	float total=0;
+	
+	for(Alunos a : alunos)
+		total+=a.getRenda();
+	
+	for(Alunos a : alunos){
+		a.setContribuicao(calcularTotal()*(a.getRenda()/total));
+		JOptionPane.showMessageDialog(null,a);
+	}
+	return valor;
+}
+
+//Persistência
 public boolean gravarAlunosEmArquivo() {
 	boolean resposta = false;
 	FileWriter arquivo = null;
@@ -100,7 +139,6 @@ public boolean gravarAlunosEmArquivo() {
 	return resposta;
 }
 
-@SuppressWarnings("resource")
 public boolean lerArquivo() {
 	FileReader arquivo = null;
 	BufferedReader buffer;
@@ -126,6 +164,7 @@ public boolean lerArquivo() {
 		String[] campos = line.split(";");
 		
 		float renda = Float.parseFloat(campos[2]);
+		//float contribuicao = Float.parseFloat(campos[3]);
 		
 		Alunos a = new Alunos(campos[0], campos[1], renda);
 		
